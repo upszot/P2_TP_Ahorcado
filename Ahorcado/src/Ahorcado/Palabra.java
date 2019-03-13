@@ -57,6 +57,8 @@ public class Palabra
         String retorno = "";
             retorno+=this.getPalabra();      
         return retorno;
-    }   
+    }
+    
+    
     //</editor-fold>
 }

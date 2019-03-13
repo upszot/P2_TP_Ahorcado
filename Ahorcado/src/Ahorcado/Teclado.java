@@ -19,7 +19,7 @@ import javax.swing.JButton;
  */
 public class Teclado extends javax.swing.JPanel {
 
-    JButton botones[]  =new JButton [27];
+    private JButton botones[]  =new JButton [27];
     private char  letra;
     
     /**
@@ -49,23 +49,26 @@ public class Teclado extends javax.swing.JPanel {
         gl.setVgap(2);
         cp.setLayout(gl);
         cp.setMaximumSize(new Dimension(530, 200));
-        //cp.setBackground(new Color(63, 51, 49)); //MODIFICAR color
-        
+                
         String letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         //centrar iconos
 
         for (int i = 0; i < letras.length(); i++)
         {
-            this.botones[i] = new JButton();
-            cp.add(botones[i]);
-            this.botones[i].setText(String.valueOf(letras.charAt(i)));
-            this.botones[i].setFont(new Font("Tahoma", 0, 20));
-            this.botones[i].setVisible(true);
-            this.botones[i].addActionListener(new ActionListener()
+            this.getBotones()[i] = new JButton();
+            cp.add(getBotones()[i]);
+            this.getBotones()[i].setText(String.valueOf(letras.charAt(i)));
+            this.getBotones()[i].setFont(new Font("Tahoma", 0, 20));
+            this.getBotones()[i].setVisible(true);
+            this.getBotones()[i].addActionListener(new ActionListener()
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
                 {
-                    setLetra(evt);                    
+                    setLetra(evt); 
+                    System.out.println("char: " + evt.getActionCommand());
+                   // this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());}
+                   
+                    
                 }
             });//fin escuchador            
                       
@@ -94,6 +97,22 @@ public class Teclado extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @return the botones
+     */
+    public JButton[] getBotones()
+    {
+        return botones;
+    }
+
+    /**
+     * @param botones the botones to set
+     */
+    public void setBotones(JButton[] botones)
+    {
+        this.botones = botones;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

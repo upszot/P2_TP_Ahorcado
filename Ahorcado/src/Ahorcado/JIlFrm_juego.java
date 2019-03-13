@@ -9,6 +9,11 @@ import java.awt.Color;
 import java.awt.Container;
 
 import java.awt.GridLayout;
+import java.awt.event.ContainerListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -21,7 +26,7 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
 {
 
     Teclado tecladoEnPantalla;
-    Juego nuevoJuego;
+    private Juego nuevoJuego;
 
     /**
      * Creates new form NewJInternalFrame
@@ -31,7 +36,9 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
         initComponents();
         showTeclado();
         iniciarJuego();
-
+        
+      //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
+        
     }
 
     /**
@@ -41,31 +48,35 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPalabra = new javax.swing.JTable();
         lblIngreseLetra = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        lblPalabra = new javax.swing.JLabel();
         panelTeclado = new javax.swing.JLayeredPane();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
 
-        jLayeredPane1.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
+        jLayeredPane1.addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
                 jLayeredPane1ComponentShown(evt);
             }
         });
 
         jtPalabra.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {}
+            new Object [][]
+            {
+
             },
-            new String [] {
+            new String []
+            {
 
             }
         ));
@@ -73,12 +84,9 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
 
         lblIngreseLetra.setText("Ingrese Letra:");
 
-        lblPalabra.setText("jLabel1");
-
         jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(lblIngreseLetra, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lblPalabra, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -92,21 +100,15 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
                         .addComponent(lblIngreseLetra, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addComponent(lblPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(485, 485, 485)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane1Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(lblPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,38 +175,62 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPalabra;
     private javax.swing.JLabel lblIngreseLetra;
-    private javax.swing.JLabel lblPalabra;
     private javax.swing.JLayeredPane panelTeclado;
     // End of variables declaration//GEN-END:variables
 
 //------------- METODOS
     private void iniciarJuego()
     {
-        DefaultTableModel tb = new DefaultTableModel(new Object[]{"ini"},5);
         nuevoJuego = new Juego();
-        tb.addRow(new String[]{"1","2"});
-
-        System.out.println("letras" + this.nuevoJuego.getPalabra_a_buscar().getPalabra().length());
-        for (int i = 0; i < this.nuevoJuego.getPalabra_a_buscar().getPalabra().length(); i++)
-        {
-            tb.addColumn(i);
-            //this.lblPalabra.addTe("___");
-        }
-        jtPalabra = new JTable(tb);
-
-       jtPalabra.setBackground(new Color(10, 10, 10));
-       jtPalabra.setVisible(true);
+        showTablaPalabra();
+       
     }
+ 
+    private void showTablaPalabra()
+    {
+        System.out.println("Palabra: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra() + 
+                           " CantCaracteres: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length() );
+        
+        DefaultTableModel tb = new DefaultTableModel();
+        tb.setNumRows(1);                
+        
+        for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
+        {
+            tb.addColumn(" ");
 
+        }
+        jtPalabra.setModel(tb);
+        jtPalabra.setVisible(true);        
+    }
+    
     private void showTeclado()
     {
         Container cp = panelTeclado;
         GridLayout gl = new GridLayout(1, 1);
         cp.setLayout(gl);
 
-        tecladoEnPantalla = new Teclado();
+        tecladoEnPantalla = new Teclado(); 
+
+        
         cp.add(tecladoEnPantalla);
         tecladoEnPantalla.setVisible(true);
     }
+    
+    private void focoTeclado()
+    {
+        this.getNuevoJuego().BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
+        System.out.println("Tecla presionada: " + this.tecladoEnPantalla.getLetra());
+        System.out.println("Palabra encontrada: " + this.getNuevoJuego().getPalabra_del_usuario());
+    }
 
+    /**
+     * @return the nuevoJuego
+     */
+    public Juego getNuevoJuego()
+    {
+        return nuevoJuego;
+    }
+
+
+    
 }
