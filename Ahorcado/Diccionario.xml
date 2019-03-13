@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_181" class="java.beans.XMLDecoder">
+ <object class="Ahorcado.Diccionario" id="Diccionario0"/>
+<void class="Ahorcado.Palabra" id="Palabra0">
+ <void property="palabra">
+  <string>REDITO</string>
+ </void>
+ <void property="definicion">
+  <string>Renta, utilidad o beneficio renovable que rinde un capital</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra1">
+ <void property="palabra">
+  <string>OVULO</string>
+ </void>
+ <void property="definicion">
+  <string>Células sexuales o gametos femeninos.1​ Son células grandes, esféricas e inmóviles.</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra2">
+ <void property="palabra">
+  <string>VIOLIN</string>
+ </void>
+ <void property="definicion">
+  <string>Instrumento musical de cuerda, el más pequeño y agudo entre los de su clase, que se compone de una caja de resonancia en forma de 8, un mástil sin trastes y cuatro cuerdas que se hacen sonar con un arco</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra3">
+ <void property="palabra">
+  <string>HORA</string>
+ </void>
+ <void property="definicion">
+  <string>Tiempo que equivale a 60 minutos, es decir, 3600 segundos</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra4">
+ <void property="palabra">
+  <string>MATRIMONIO</string>
+ </void>
+ <void property="definicion">
+  <string>Antigua institución social, presente en gran cantidad de culturas, que establece un vínculo conyugal entre personas naturales, reconocido y consolidado por medio de prácticas comunitarias y normas legales, consuetudinarias, religiosas o morales</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra5">
+ <void property="palabra">
+  <string>DECORACION</string>
+ </void>
+ <void property="definicion">
+  <string>Arte que estudia la combinación de elementos ornamentales y la acomodación del espacio interior</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra6">
+ <void property="palabra">
+  <string>CINTA</string>
+ </void>
+ <void property="definicion">
+  <string>Tira de tela u otro material de propiedades semejantes que sirve para atar, ceñir o adornar</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra7">
+ <void property="palabra">
+  <string>CUERDA</string>
+ </void>
+ <void property="definicion">
+  <string>Conjunto de hilos entrelazados que forman un solo cuerpo largo y flexible que sirve para atar, suspender pesos, etc.</string>
+ </void>
+</void>
+<void class="Ahorcado.Palabra" id="Palabra8">
+ <void property="palabra">
+  <string>PARACAIDAS</string>
+ </void>
+ <void property="definicion">
+  <string>Artefacto de tela resistente o de otra materia análoga, que se extiende en el aire en forma de sombrilla grande, cuya función es la de moderar la velocidad de caída de un cuerpo que se arroja desde una aeronave</string>
+ </void>
+</void>
+<void class="Ahorcado.Diccionario" id="Field0" method="getField">
+ <string>lista</string>
+ <void id="ArrayList0" method="get">
+  <object idref="Diccionario0"/>
+  <void method="add">
+   <object idref="Palabra5"/>
+  </void>
+  <void method="add">
+   <object idref="Palabra4"/>
+  </void>
+  <void method="add">
+   <object idref="Palabra0"/>
+  </void>
+  <void method="add">
+   <object class="Ahorcado.Palabra">
+    <void property="definicion">
+     <string>Cálculo u operación aritmética.
+Cada una de las bolas ensartadas que componen el rosario</string>
+    </void>
+    <void property="palabra">
+     <string>CUENTA</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Palabra1"/>
+  </void>
+  <void method="add">
+   <object class="Ahorcado.Palabra">
+    <void property="definicion">
+     <string>Parte superior de un edificio, construcción, habitáculo, etc., que lo cubre y cierra</string>
+    </void>
+    <void property="palabra">
+     <string>TECHO</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Palabra3"/>
+  </void>
+  <void method="add">
+   <object idref="Palabra2"/>
+  </void>
+  <void method="add">
+   <object idref="Palabra6"/>
+  </void>
+  <void method="add">
+   <object idref="Palabra7"/>
+  </void>
+  <void method="add">
+   <object class="Ahorcado.Palabra">
+    <void property="definicion">
+     <string>Calzado cómodo y ligero, de paño, piel, etc., y con suela delgada, que se usa para estar en casa</string>
+    </void>
+    <void property="palabra">
+     <string>ZAPATILLA</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Ahorcado.Palabra">
+    <void property="definicion">
+     <string>Instrumento o aparato con aspas giratorias que impulsa o remueve el aire</string>
+    </void>
+    <void property="palabra">
+     <string>VENTILADOR</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Palabra8"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList0"/>
+</java>
