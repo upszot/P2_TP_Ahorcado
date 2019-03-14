@@ -7,13 +7,18 @@ package Ahorcado;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.awt.event.ContainerListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -25,8 +30,13 @@ import javax.swing.table.TableColumn;
 public class JIlFrm_juego extends javax.swing.JInternalFrame
 {
 
-    Teclado tecladoEnPantalla;
+    private Teclado tecladoEnPantalla;
     private Juego nuevoJuego;
+
+    private JButton botones[] = new JButton[27];
+    private char letra;
+     Container cp ;
+    
 
     /**
      * Creates new form NewJInternalFrame
@@ -34,11 +44,10 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
     public JIlFrm_juego()
     {
         initComponents();
-        showTeclado();
         iniciarJuego();
-        
-      //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
-        
+        iniciarTeclado();
+
+        //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
     }
 
     /**
@@ -181,45 +190,41 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
 //------------- METODOS
     private void iniciarJuego()
     {
-        nuevoJuego = new Juego();
-        showTablaPalabra();
-       
+        setNuevoJuego(new Juego());
+        showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
     }
- 
-    private void showTablaPalabra()
+
+    private void showTablaPalabra(String mascara)
     {
-        System.out.println("Palabra: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra() + 
-                           " CantCaracteres: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length() );
-        
+        System.out.println("Palabra: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra()
+                + " CantCaracteres: " + this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length());
+
         DefaultTableModel tb = new DefaultTableModel();
-        tb.setNumRows(1);                
-        
+        tb.setNumRows(1);
+
         for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
         {
-            tb.addColumn(" ");
+            tb.addColumn(mascara.charAt(i));
 
         }
-        jtPalabra.setModel(tb);
-        jtPalabra.setVisible(true);        
+        getJtPalabra().setModel(tb);
+        getJtPalabra().setVisible(true);
     }
-    
-    private void showTeclado()
+
+    /*   private void showTeclado()
     {
-        Container cp = panelTeclado;
+        Container cp = getPanelTeclado();
         GridLayout gl = new GridLayout(1, 1);
-        cp.setLayout(gl);
+        cp.setLayout(gl);      
 
-        tecladoEnPantalla = new Teclado(); 
-
-        
-        cp.add(tecladoEnPantalla);
-        tecladoEnPantalla.setVisible(true);
+        cp.add(iniciarTeclado());
+        getTecladoEnPantalla().setVisible(true);
     }
-    
+     */
     private void focoTeclado()
     {
-        this.getNuevoJuego().BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
-        System.out.println("Tecla presionada: " + this.tecladoEnPantalla.getLetra());
+        this.getNuevoJuego().BuscaLetraEnPalabra(this.getTecladoEnPantalla().getLetra());
+        System.out.println("Tecla presionada: " + this.getTecladoEnPantalla().getLetra());
         System.out.println("Palabra encontrada: " + this.getNuevoJuego().getPalabra_del_usuario());
     }
 
@@ -231,6 +236,239 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
         return nuevoJuego;
     }
 
+    //<editor-fold desc="GETTERS&SETTERS">    
+    public void setLetra(java.awt.event.ActionEvent letra)
+    {
+        JButton eventoBoton = (JButton) letra.getSource();
+        eventoBoton.setEnabled(false);
 
-    
+        String aux = letra.getActionCommand();
+        this.setLetra(aux.charAt(0));
+        
+        System.out.println("A pretado el boton " + eventoBoton.getActionCommand());
+    }
+
+    public char getLetra()
+    {
+        return letra;
+    }
+    //</editor-fold>
+
+    public void iniciarTeclado()
+    {
+        cp = this.panelTeclado;
+        GridLayout gl = new GridLayout(3, 10);
+        gl.setHgap(2);
+        gl.setVgap(2);
+        cp.setLayout(gl);
+        cp.setMaximumSize(new Dimension(530, 200));
+
+        String letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        //centrar iconos
+
+        for (int i = 0; i < letras.length(); i++)
+        {
+            this.getBotones()[i] = new JButton();
+            cp.add(getBotones()[i]);
+            this.getBotones()[i].setText(String.valueOf(letras.charAt(i)));
+            this.getBotones()[i].setFont(new Font("Tahoma", 0, 20));
+            this.getBotones()[i].setVisible(true);
+            this.getBotones()[i].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    setLetra(evt);
+                    recibirDeTeclado(getLetra());
+
+                    //    this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
+                }
+            });//fin escuchador            
+
+        }// FIN for (int i = 0; i < letras.length(); i++)
+    }
+
+    /**
+     * @return the tecladoEnPantalla
+     */
+    public void recibirDeTeclado(char letra1)
+    {
+        
+        this.nuevoJuego.setCantFallos(this.nuevoJuego.getCantFallos() + this.nuevoJuego.BuscaLetraEnPalabra(letra1));
+        
+        if (this.nuevoJuego.getPalabra_a_buscar().getPalabra().compareToIgnoreCase(this.nuevoJuego.getPalabra_del_usuario()) == 0)
+        {//Comparo palabras a buscar y la ingresada y le pego...wiii gano... PROXIMA PALABRA
+            showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
+            this.nuevoJuego.setCantAciertos(this.nuevoJuego.getCantAciertos()+1); //palabras acertadas
+            System.out.println(" Palabra Correcta " + this.nuevoJuego.getPalabra_del_usuario());
+            JOptionPane.showMessageDialog(this, " Palabra Correcta " + this.nuevoJuego.getPalabra_del_usuario());
+            this.nuevoJuego.nuevaPalabra();
+            this.limpiarPanelJuego();
+        }
+        else
+        {
+            if(this.nuevoJuego.getCantFallos()==this.nuevoJuego.getCantFallosPermitidos())
+            {//hee le erraste todas...chinguenguenza
+                System.out.println("Perdiste....");
+                JOptionPane.showMessageDialog(this, " Perdiste!! le erraste todas...chinguenguenza, La palabra era:  " + this.nuevoJuego.getPalabra_a_buscar());
+                
+                if(this.nuevoJuego.getCantAciertos()>1)
+                {//anotate en lista ganadores
+                    
+                }
+            }
+        }
+        //aca refresco la pantalla
+        showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
+    }
+
+    private void limpiarPanelJuego()
+    {
+        cp.removeAll();
+        iniciarTeclado();
+        showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
+        // limpiar dibujo
+
+    }
+
+    public Teclado getTecladoEnPantalla()
+    {
+        return tecladoEnPantalla;
+    }
+
+    /**
+     * @param tecladoEnPantalla the tecladoEnPantalla to set
+     */
+    public void setTecladoEnPantalla(Teclado tecladoEnPantalla)
+    {
+        this.tecladoEnPantalla = tecladoEnPantalla;
+    }
+
+    /**
+     * @param nuevoJuego the nuevoJuego to set
+     */
+    public void setNuevoJuego(Juego nuevoJuego)
+    {
+        this.nuevoJuego = nuevoJuego;
+    }
+
+    /**
+     * @return the botones
+     */
+    public JButton[] getBotones()
+    {
+        return botones;
+    }
+
+    /**
+     * @param botones the botones to set
+     */
+    public void setBotones(JButton[] botones)
+    {
+        this.botones = botones;
+    }
+
+    /**
+     * @param letra the letra to set
+     */
+    public void setLetra(char letra)
+    {
+        this.letra = letra;
+    }
+
+    /**
+     * @return the jLabel3
+     */
+    public javax.swing.JLabel getjLabel3()
+    {
+        return jLabel3;
+    }
+
+    /**
+     * @param jLabel3 the jLabel3 to set
+     */
+    public void setjLabel3(javax.swing.JLabel jLabel3)
+    {
+        this.jLabel3 = jLabel3;
+    }
+
+    /**
+     * @return the jLayeredPane1
+     */
+    public javax.swing.JLayeredPane getjLayeredPane1()
+    {
+        return jLayeredPane1;
+    }
+
+    /**
+     * @param jLayeredPane1 the jLayeredPane1 to set
+     */
+    public void setjLayeredPane1(javax.swing.JLayeredPane jLayeredPane1)
+    {
+        this.jLayeredPane1 = jLayeredPane1;
+    }
+
+    /**
+     * @return the jScrollPane1
+     */
+    public javax.swing.JScrollPane getjScrollPane1()
+    {
+        return jScrollPane1;
+    }
+
+    /**
+     * @param jScrollPane1 the jScrollPane1 to set
+     */
+    public void setjScrollPane1(javax.swing.JScrollPane jScrollPane1)
+    {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    /**
+     * @return the jtPalabra
+     */
+    public javax.swing.JTable getJtPalabra()
+    {
+        return jtPalabra;
+    }
+
+    /**
+     * @param jtPalabra the jtPalabra to set
+     */
+    public void setJtPalabra(javax.swing.JTable jtPalabra)
+    {
+        this.jtPalabra = jtPalabra;
+    }
+
+    /**
+     * @return the lblIngreseLetra
+     */
+    public javax.swing.JLabel getLblIngreseLetra()
+    {
+        return lblIngreseLetra;
+    }
+
+    /**
+     * @param lblIngreseLetra the lblIngreseLetra to set
+     */
+    public void setLblIngreseLetra(javax.swing.JLabel lblIngreseLetra)
+    {
+        this.lblIngreseLetra = lblIngreseLetra;
+    }
+
+    /**
+     * @return the panelTeclado
+     */
+    public javax.swing.JLayeredPane getPanelTeclado()
+    {
+        return panelTeclado;
+    }
+
+    /**
+     * @param panelTeclado the panelTeclado to set
+     */
+    public void setPanelTeclado(javax.swing.JLayeredPane panelTeclado)
+    {
+        this.panelTeclado = panelTeclado;
+    }
+
 }
