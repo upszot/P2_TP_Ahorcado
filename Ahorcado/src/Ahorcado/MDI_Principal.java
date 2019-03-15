@@ -5,6 +5,9 @@
  */
 package Ahorcado;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author upszot
@@ -20,7 +23,26 @@ public class MDI_Principal extends javax.swing.JFrame {
      * Creates new form NewMDIApplication
      */
     public MDI_Principal() {
-        initComponents();
+        
+        //JLabel imagenLogo=new JLabel(new ImageIcon("imagenes/logo.jpg"));
+        this.setTitle("upszot  Game");
+   
+       
+        this.setContentPane(new JLabel(new ImageIcon("imagenes/logo.jpg")));
+      //  this.fondo.setIcon(new ImageIcon("imagenes/logo.jpg")); // muestra la imagen...        
+       initComponents(); 
+        
+        //this.paintComponents(grphcs);
+        //Alto: 857 ancho: 829
+        
+          //   this.desktopPane.add(imagenLogo);
+        
+        //System.out.println("Orden Posicion: " + this.getComponentZOrder(this.menuBar));
+        
+        //this.setComponentZOrder(menuBar, -1);
+        
+        
+        //this.setComponentZOrder(imagenLogo, 2);
     }
 
     /**
@@ -34,6 +56,7 @@ public class MDI_Principal extends javax.swing.JFrame {
     {
 
         desktopPane = new javax.swing.JDesktopPane();
+        fondo = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         nuevoMenuItem = new javax.swing.JMenuItem();
@@ -44,6 +67,10 @@ public class MDI_Principal extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        desktopPane.setRequestFocusEnabled(false);
+
+        fondo.setText("jLabel1");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Juego");
@@ -92,6 +119,13 @@ public class MDI_Principal extends javax.swing.JFrame {
 
         aboutMenuItem.setMnemonic('a');
         aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
         helpMenu.add(aboutMenuItem);
 
         menuBar.add(helpMenu);
@@ -103,10 +137,20 @@ public class MDI_Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(390, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(194, Short.MAX_VALUE)))
         );
 
         pack();
@@ -130,6 +174,14 @@ public class MDI_Principal extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_scoreMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_scoreMenuItemActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutMenuItemActionPerformed
+    {//GEN-HEADEREND:event_aboutMenuItemActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println("Alto: " + this.getHeight() + " ancho: " + this.getWidth());
+        
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,6 +225,7 @@ public class MDI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem dificultadMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JLabel fondo;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nuevoMenuItem;

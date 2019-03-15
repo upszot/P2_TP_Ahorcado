@@ -23,4 +23,9 @@ public class Score extends Ganador
         super(_nombre, _nivel, _cantidad_palabras);
     }
     
+    public addToScore()
+    {
+        
+    }
+    
 }

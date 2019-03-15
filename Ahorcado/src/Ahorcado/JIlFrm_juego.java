@@ -17,7 +17,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -43,10 +45,13 @@ public class JIlFrm_juego extends javax.swing.JInternalFrame
      */
     public JIlFrm_juego()
     {
+        this.setContentPane(new JLabel(new ImageIcon("imagenes/fondo.jpg")));
+        
         initComponents();
         iniciarJuego();
         iniciarTeclado();
-
+        
+        
         //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
     }
 
