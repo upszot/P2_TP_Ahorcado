@@ -5,6 +5,12 @@
  */
 package Ahorcado;
 
+import java.awt.image.BufferedImage;
+import java.awt.Color;
+import java.awt.Window;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -12,37 +18,26 @@ import javax.swing.JLabel;
  *
  * @author upszot
  */
-public class MDI_Principal extends javax.swing.JFrame {
+public class MDI_Principal extends javax.swing.JFrame
+{
 
-    
     //<editor-fold desc="Atributos">
-    
     // </editor-fold>
-   
     /**
      * Creates new form NewMDIApplication
      */
-    public MDI_Principal() {
-        
-        //JLabel imagenLogo=new JLabel(new ImageIcon("imagenes/logo.jpg"));
+    public MDI_Principal()
+    {
         this.setTitle("upszot  Game");
-   
-       
-        this.setContentPane(new JLabel(new ImageIcon("imagenes/logo.jpg")));
-      //  this.fondo.setIcon(new ImageIcon("imagenes/logo.jpg")); // muestra la imagen...        
-       initComponents(); 
-        
+
+        initComponents();
+        this.desktopPane.setBorder(new fondoP());
+
         //this.paintComponents(grphcs);
         //Alto: 857 ancho: 829
-        
-          //   this.desktopPane.add(imagenLogo);
-        
-        //System.out.println("Orden Posicion: " + this.getComponentZOrder(this.menuBar));
-        
-        //this.setComponentZOrder(menuBar, -1);
-        
-        
-        //this.setComponentZOrder(imagenLogo, 2);
+        System.out.println(" medidas" + this.getWidth() + this.getHeight());
+        this.setResizable(false);
+
     }
 
     /**
@@ -56,7 +51,6 @@ public class MDI_Principal extends javax.swing.JFrame {
     {
 
         desktopPane = new javax.swing.JDesktopPane();
-        fondo = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         nuevoMenuItem = new javax.swing.JMenuItem();
@@ -67,10 +61,12 @@ public class MDI_Principal extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(800, 700));
+        setMinimumSize(new java.awt.Dimension(800, 700));
 
+        desktopPane.setMaximumSize(new java.awt.Dimension(800, 600));
+        desktopPane.setMinimumSize(new java.awt.Dimension(800, 700));
         desktopPane.setRequestFocusEnabled(false);
-
-        fondo.setText("jLabel1");
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Juego");
@@ -136,24 +132,15 @@ public class MDI_Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(390, Short.MAX_VALUE)))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(194, Short.MAX_VALUE)))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -163,57 +150,104 @@ public class MDI_Principal extends javax.swing.JFrame {
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         // TODO add your handling code here:
         //abrir ventana para nuevo juego
-        JIlFrm_juego vjuego = new JIlFrm_juego();
-        this.desktopPane.add(vjuego);
-        
-        
+        Frm_juego vjuego = new Frm_juego();
+        this.getDesktopPane().add(vjuego);
         vjuego.show();
-    }//GEN-LAST:event_nuevoMenuItemActionPerformed
+        vjuego.addComponentListener(new ComponentListener()
+        {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
 
+            @Override
+            public void componentMoved(ComponentEvent e)
+            {
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e)
+            {
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e)
+            {
+                frm_score vScore = new frm_score();
+                desktopPane.add(vScore);
+                vScore.show();
+                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+
+    }//GEN-LAST:event_nuevoMenuItemActionPerformed
+//------------------
+
+    //-------------------
     private void scoreMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_scoreMenuItemActionPerformed
     {//GEN-HEADEREND:event_scoreMenuItemActionPerformed
         // TODO add your handling code here:
+        frm_score vScore = new frm_score();
+        this.getDesktopPane().add(vScore);
+        vScore.show();
     }//GEN-LAST:event_scoreMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutMenuItemActionPerformed
     {//GEN-HEADEREND:event_aboutMenuItemActionPerformed
         // TODO add your handling code here:
-        
+
         System.out.println("Alto: " + this.getHeight() + " ancho: " + this.getWidth());
-        
+
     }//GEN-LAST:event_aboutMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        }
+        catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(MDI_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        }
+        catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(MDI_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        }
+        catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(MDI_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+        catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(MDI_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new MDI_Principal().setVisible(true);
             }
         });
@@ -225,11 +259,25 @@ public class MDI_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem dificultadMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JLabel fondo;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem nuevoMenuItem;
     private javax.swing.JMenuItem scoreMenuItem;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * @return the desktopPane
+     */
+    public javax.swing.JDesktopPane getDesktopPane()
+    {
+        return desktopPane;
+    }
+
+    /**
+     * @param desktopPane the desktopPane to set
+     */
+    public void setDesktopPane(javax.swing.JDesktopPane desktopPane)
+    {
+        this.desktopPane = desktopPane;
+    }
 }

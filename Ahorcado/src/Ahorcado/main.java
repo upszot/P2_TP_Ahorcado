@@ -5,6 +5,9 @@
  */
 package Ahorcado;
 
+import Clases.Diccionario;
+import Clases.Score;
+
 /**
  *
  * @author upszot
@@ -12,12 +15,13 @@ package Ahorcado;
 public class main {
 
     public static String pathDiccionario = "Diccionario.xml";
+    public static String pathScore= "score.xml";
     
     public static void main(String[] args) 
     {
-        //generarLIstas();
+       generarLIstas();
          
-        //Juego  nuevoJuego = new Juego();
+     //  Juego  nuevoJuego = new Juego();
         
          
     }
@@ -25,9 +29,14 @@ public class main {
     /**
      *
      */
-    public static void generarLIstas() {
+    public static void generarLIstas()
+    {        
         Diccionario diccionario1 = new Diccionario();
-        diccionario1.generar();
+        diccionario1.generar();       
         Diccionario.guardarArchivoDiccionario(diccionario1, pathDiccionario );
+       
+        Score score = new Score();
+        score.generar();       
+        Score.guardarArchivoScore(score, pathScore);
     }
 }
