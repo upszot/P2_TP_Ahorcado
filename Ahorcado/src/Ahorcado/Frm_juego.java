@@ -7,6 +7,7 @@ package Ahorcado;
 
 import Clases.Score;
 import Clases.Ganador;
+import Clases.ISonidos;
 import Clases.Juego;
 import java.awt.Color;
 import java.awt.Container;
@@ -27,7 +28,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.Locale;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -44,19 +51,18 @@ import javax.swing.table.TableColumn;
  *
  * @author upszot
  */
-public class Frm_juego extends javax.swing.JInternalFrame
+public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
 {
 
     private Teclado tecladoEnPantalla;
     private Juego nuevoJuego;
 
+    private Ganador player;
+
     private JButton botones[] = new JButton[27];
     private char letra;
     Container cp;
     Container cr;
-
-    JLabel lblPlayer;
-    JTextField nombre;
 
     /**
      * Creates new form NewJInternalFrame
@@ -83,37 +89,88 @@ public class Frm_juego extends javax.swing.JInternalFrame
     {
 
         panelTeclado = new javax.swing.JLayeredPane();
+        panelNombre = new javax.swing.JPanel();
+        boxTituloNombre = new javax.swing.JLabel();
+        boxNombre = new javax.swing.JTextField();
         panelPalabra = new javax.swing.JScrollPane();
         jtPalabra = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        panelImagen = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(0, 0, 0));
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        setMaximumSize(new java.awt.Dimension(626, 521));
-        setMinimumSize(new java.awt.Dimension(626, 521));
-        setPreferredSize(new java.awt.Dimension(626, 521));
+        setMaximumSize(new java.awt.Dimension(626, 600));
+        setMinimumSize(new java.awt.Dimension(626, 600));
+        setPreferredSize(new java.awt.Dimension(626, 600));
 
         panelTeclado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panelTeclado.setMaximumSize(new java.awt.Dimension(580, 159));
         panelTeclado.setMinimumSize(new java.awt.Dimension(580, 159));
         panelTeclado.setName(""); // NOI18N
-        panelTeclado.setPreferredSize(new java.awt.Dimension(580, 159));
         panelTeclado.setRequestFocusEnabled(false);
         panelTeclado.setVerifyInputWhenFocusTarget(false);
+
+        panelNombre.setMaximumSize(new java.awt.Dimension(400, 100));
+        panelNombre.setMinimumSize(new java.awt.Dimension(400, 100));
+        panelNombre.setOpaque(false);
+        panelNombre.setPreferredSize(new java.awt.Dimension(420, 100));
+
+        boxTituloNombre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        boxTituloNombre.setForeground(new java.awt.Color(255, 255, 255));
+        boxTituloNombre.setText("ingrese su nombre");
+
+        boxNombre.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        boxNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        boxNombre.setToolTipText("");
+        boxNombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                boxNombreKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelNombreLayout = new javax.swing.GroupLayout(panelNombre);
+        panelNombre.setLayout(panelNombreLayout);
+        panelNombreLayout.setHorizontalGroup(
+            panelNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelNombreLayout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(panelNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(boxTituloNombre)
+                    .addComponent(boxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(128, 128, 128))
+        );
+        panelNombreLayout.setVerticalGroup(
+            panelNombreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNombreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(boxTituloNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(boxNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(6, Short.MAX_VALUE))
+        );
+
+        panelTeclado.setLayer(panelNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelTecladoLayout = new javax.swing.GroupLayout(panelTeclado);
         panelTeclado.setLayout(panelTecladoLayout);
         panelTecladoLayout.setHorizontalGroup(
             panelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGroup(panelTecladoLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(panelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTecladoLayout.setVerticalGroup(
             panelTecladoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 157, Short.MAX_VALUE)
+            .addGroup(panelTecladoLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(panelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        panelPalabra.setBackground(null);
         panelPalabra.setBorder(null);
         panelPalabra.setOpaque(false);
 
@@ -141,38 +198,45 @@ public class Frm_juego extends javax.swing.JInternalFrame
         jtPalabra.getTableHeader().setReorderingAllowed(false);
         panelPalabra.setViewportView(jtPalabra);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        panelImagen.setMaximumSize(new java.awt.Dimension(613, 282));
+        panelImagen.setMinimumSize(new java.awt.Dimension(613, 282));
+        panelImagen.setOpaque(false);
+        panelImagen.setPreferredSize(new java.awt.Dimension(613, 282));
+
+        javax.swing.GroupLayout panelImagenLayout = new javax.swing.GroupLayout(panelImagen);
+        panelImagen.setLayout(panelImagenLayout);
+        panelImagenLayout.setHorizontalGroup(
+            panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 613, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 171, Short.MAX_VALUE)
+        panelImagenLayout.setVerticalGroup(
+            panelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 282, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelPalabra)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(panelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelPalabra, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelPalabra, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelTeclado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -189,32 +253,44 @@ public class Frm_juego extends javax.swing.JInternalFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBox2KeyTyped
 
+    private void boxNombreKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_boxNombreKeyPressed
+    {//GEN-HEADEREND:event_boxNombreKeyPressed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_boxNombreKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField boxNombre;
+    private javax.swing.JLabel boxTituloNombre;
     private javax.swing.JTable jtPalabra;
+    private javax.swing.JPanel panelImagen;
+    private javax.swing.JPanel panelNombre;
     private javax.swing.JScrollPane panelPalabra;
     private javax.swing.JLayeredPane panelTeclado;
     // End of variables declaration//GEN-END:variables
 
 //------------- METODOS
-    public void miCustomCursor() 
-    {        
-        String imgCursor1="imagenes/cursor1.cur"; //este no lo muestra
-        String imgCursor2="imagenes/cursor2.png";
-        String imgCursor3="imagenes/cursor3.png"; //el que mejor se ve...
-        ImageIcon imagen=new ImageIcon(imgCursor3);
-        
+    public void miCustomCursor()
+    {
+        String imgCursor1 = "imagenes/cursor1.cur"; //este no lo muestra
+        String imgCursor2 = "imagenes/cursor2.png";
+        String imgCursor3 = "imagenes/cursor3.png"; //el que mejor se ve...
+        ImageIcon imagen = new ImageIcon(imgCursor3);
+
         Cursor miCursor;
-        Toolkit TK =  Toolkit.getDefaultToolkit();
-        
-        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0,0),"Cursor");
+        Toolkit TK = Toolkit.getDefaultToolkit();
+
+        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0, 0), "Cursor");
         this.setCursor(miCursor);
     }
-        
+
     private void iniciarJuego()
     {
+        sonidoCargarRevolver();
         setNuevoJuego(new Juego());
+        actualizarImagen(0);
         showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
     }
 
@@ -226,26 +302,28 @@ public class Frm_juego extends javax.swing.JInternalFrame
         DefaultTableModel tb = new DefaultTableModel();
         tb.setNumRows(1);
         tb.setRowCount(1);
-        
+
         jtPalabra.setShowGrid(true);
         //----- Tratando de centrar el texto de la celda...
-        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setVerticalTextPosition((int) CENTER_ALIGNMENT);
-        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setHorizontalTextPosition((int) CENTER_ALIGNMENT);
+        DefaultTableCellRenderer tcr= new DefaultTableCellRenderer();
+        tcr.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        tcr.setVerticalTextPosition((int) CENTER_ALIGNMENT);
+//        ((DefaultTableCellRenderer) jtPalabra.getDefaultRenderer(Object.class)).setVerticalTextPosition((int) CENTER_ALIGNMENT);
+//        ((DefaultTableCellRenderer) jtPalabra.getDefaultRenderer(Object.class)).setHorizontalTextPosition((int) CENTER_ALIGNMENT);
 
         //--------- Tabla Transparente ------
-        jtPalabra.setOpaque(false);        
-        jtPalabra.setBackground(new Color(0,0, 0));
-        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setBackground(new Color(0,0, 0));        
-        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setOpaque(false);
+        jtPalabra.setOpaque(false);
+        jtPalabra.setBackground(new Color(0, 0, 0));
+        ((DefaultTableCellRenderer) jtPalabra.getDefaultRenderer(Object.class)).setBackground(new Color(0, 0, 0));
+        ((DefaultTableCellRenderer) jtPalabra.getDefaultRenderer(Object.class)).setOpaque(false);
         jtPalabra.setGridColor(Color.WHITE);
         jtPalabra.setForeground(Color.WHITE);
-        
-        panelPalabra.setBackground(new Color(0,0,0));
+
+        panelPalabra.setBackground(new Color(0, 0, 0));
         panelPalabra.setOpaque(false);
         panelPalabra.getViewport().setOpaque(false);
         //------------------------------------
-                
-                
+
         for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
         {
             tb.addColumn(" ");
@@ -256,8 +334,7 @@ public class Frm_juego extends javax.swing.JInternalFrame
         for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
         {
             jtPalabra.setValueAt(mascara.charAt(i), 0, i);
-            //jtPalabra.setValueAt(" ", 0, i);
-
+            //jtPalabra.getColumnModel().getColumn(i).setCellRenderer(tcr);// si uso este y no uso el tcr para transparencia este me la pisa..
         }
         jtPalabra.setAutoscrolls(false);
         jtPalabra.setTableHeader(null);
@@ -309,6 +386,7 @@ public class Frm_juego extends javax.swing.JInternalFrame
 
     public void iniciarTeclado()
     {
+        this.panelNombre.setVisible(false);
         cp = this.panelTeclado;
         GridLayout gl = new GridLayout(3, 10);
         gl.setHgap(2);
@@ -327,9 +405,9 @@ public class Frm_juego extends javax.swing.JInternalFrame
             this.getBotones()[i].setFont(new Font("Tahoma", 0, 20));
             this.getBotones()[i].setVisible(true);
             this.getBotones()[i].setForeground(new Color(255, 255, 255));
-            this.getBotones()[i].setContentAreaFilled(false);
+            this.getBotones()[i].setContentAreaFilled(false); //Boton Transparente
             this.getBotones()[i].setBorderPainted(false);
-            this.getBotones()[i].setBorder(null);
+            this.getBotones()[i].setBorder(null);            
 
             this.getBotones()[i].addActionListener(new ActionListener()
             {
@@ -350,7 +428,11 @@ public class Frm_juego extends javax.swing.JInternalFrame
      */
     public void recibirDeTeclado(char letra1)
     {
-        this.nuevoJuego.setCantFallos(this.nuevoJuego.getCantFallos() + this.nuevoJuego.BuscaLetraEnPalabra(letra1));
+        if (!this.nuevoJuego.setCantFallos(this.nuevoJuego.getCantFallos() + this.nuevoJuego.BuscaLetraEnPalabra(letra1)))
+        {
+            actualizarImagen(this.nuevoJuego.getCantFallos());
+            System.out.println("Fallo letra - Cambio Actualizo imagen");
+        }
 
         if (this.nuevoJuego.getPalabra_a_buscar().getPalabra().compareToIgnoreCase(this.nuevoJuego.getPalabra_del_usuario()) == 0)
         {//Comparo palabras a buscar y la ingresada y le pego...wiii gano... PROXIMA PALABRA
@@ -361,14 +443,15 @@ public class Frm_juego extends javax.swing.JInternalFrame
             this.nuevoJuego.nuevaPalabra();
             this.limpiarPanelJuego();
         }
+
         else
         {
             if (this.nuevoJuego.getCantFallos() == this.nuevoJuego.getCantFallosPermitidos())
-            {//hee le erraste todas...chinguenguenza
+            {   //hee le erraste todas...chinguenguenza
                 System.out.println("Perdiste.... " + this.nuevoJuego.getCantAciertos());
                 JOptionPane.showMessageDialog(this, " Perdiste!! le erraste todas...chinguenguenza, La palabra era:  " + this.nuevoJuego.getPalabra_a_buscar());
 
-                if (this.nuevoJuego.getCantAciertos() >= 1)
+                if (this.nuevoJuego.getCantAciertos() >= 0)
                 {//anotate en lista ganadores
                     System.out.println("entro Anota ganador");
 
@@ -376,57 +459,52 @@ public class Frm_juego extends javax.swing.JInternalFrame
                     cp.removeAll();
                     this.panelTeclado.repaint();
                     cp = this.panelTeclado;
-                    GridLayout gl = new GridLayout(1, 1);
+                    GridLayout gl = new GridLayout(1, 2);
+
                     cp.setLayout(gl);
-                    cp.setMaximumSize(new Dimension(530, 200));
-                    puntos ingreseNombre = new puntos();
-                    cp.add(ingreseNombre);
-                    ingreseNombre.setVisible(true);
-                    ingreseNombre.addComponentListener(new ComponentListener()
+                    cp.add(panelNombre);
+
+                    this.panelNombre.setVisible(true);
+                    this.boxNombre.addKeyListener(new KeyListener()
                     {
                         @Override
-                        public void componentResized(ComponentEvent e)
-                        {
-                            //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-
-                        @Override
-                        public void componentMoved(ComponentEvent e)
-                        {
-                            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-
-                        @Override
-                        public void componentShown(ComponentEvent e)
+                        public void keyTyped(KeyEvent e)
                         {
                             // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
 
                         @Override
-                        public void componentHidden(ComponentEvent e)
+                        public void keyPressed(KeyEvent e)
                         {
-                            Ganador player = new Ganador(ingreseNombre.getPlayer(), nuevoJuego.getDificultad(), nuevoJuego.getCantAciertos());
+                            if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                            {
+                                setPlayer(new Ganador(boxNombre.getText(), nuevoJuego.getDificultad(), nuevoJuego.getCantAciertos()));
+                                System.out.println(getPlayer().toString());
+                                abrirAgregarGuardar(getPlayer());
+                                ocultar();
+                                panelNombre.setVisible(false);
+                            }
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
 
-                            //Score.addtoScore*player();
-                            System.out.println(player.toString());
-                            abrirAgregarGuardar(player);
-                            ocultar();
-
+                        @Override
+                        public void keyReleased(KeyEvent e)
+                        {
                             // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                         }
                     });
+
                     cp.repaint();
 
-                    /*   lblPlayer = new JLabel("ingrese su nombre: ");
-                    nombre = new JTextField();
-                    cp.add(lblPlayer);
-                    cp.add(nombre);
-                    lblPlayer.setVisible(true);
-                    nombre.setVisible(true);*/
+                }
+                else
+                {
+                    this.setVisible(false);
                 }
             }
         }
         //aca refresco la pantalla
+
         showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
     }
 
@@ -438,10 +516,9 @@ public class Frm_juego extends javax.swing.JInternalFrame
     private void limpiarPanelJuego()
     {
         cp.removeAll();
+        actualizarImagen(this.nuevoJuego.getCantFallos()); // antes de actualizar teclado pq sino queda mal renderizado y hay q mover la ventana para q se vea bien...
         iniciarTeclado();
         showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
-        // limpiar dibujo
-
     }
 
     public Teclado getTecladoEnPantalla()
@@ -523,17 +600,77 @@ public class Frm_juego extends javax.swing.JInternalFrame
 
     private void abrirAgregarGuardar(Ganador player)
     {
-        Score scoreAux;    
+        Score scoreAux;
         if (player.getNombre().length() > 0)
         {
-            scoreAux=Score.cargarScore(Ahorcado.main.pathScore);
+            scoreAux = Score.cargarScore(Ahorcado.main.pathScore);
             scoreAux.addToScore(player);
             JOptionPane.showMessageDialog(this, "Agregado");
             System.out.println("agregado");
-           Score.guardarArchivoScore(scoreAux,Ahorcado.main.pathScore);
-               // System.out.println("Lista Guardada con Exito");
-           
+            Score.guardarArchivoScore(scoreAux, Ahorcado.main.pathScore);
+            // System.out.println("Lista Guardada con Exito");
         }
 
+    }
+
+    public void actualizarImagen(int intento)
+    {
+        if (this.panelImagen != null)
+        {
+            this.panelImagen.removeAll();
+        }
+
+        Container cp = this.panelImagen;
+        GridLayout gl = new GridLayout(1, 1);
+        cp.setLayout(gl);
+        //ImageIcon tiros = new ImageIcon("imagenes/tiro_0" + intento + ".png");
+        ImageIcon tiros = new ImageIcon("imagenes/Nuevo_tiro_0" + intento + ".png");
+        JLabel lblImagen = new JLabel(tiros);
+        cp.add(lblImagen);
+    }
+
+    public Ganador getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(Ganador player)
+    {
+        this.player = player;
+    }
+
+    @Override
+    public void sonidoCargarRevolver()
+    {
+        System.out.println("Reproduccir sonido carga");
+        
+        /*
+        String path = "Sonidos/Carga_Revolver_Magnun.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        */
+        
+        /*
+        Clip soundClip;
+        String archSonido="Sonidos/Carga_Revolver_Magnun.mp3";
+        try
+        {
+            soundClip=AudioSystem.getClip();
+            soundClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(archSonido)));
+            soundClip.start();
+        }
+        catch(Exception e)
+        {
+            
+        }*/
+        
+    }
+    
+    @Override
+    public void sonidoDisparo()
+    {
+        
     }
 }

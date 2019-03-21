@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author gferrer_mecon
+ * @author upszot
  */
 public class Score
 {

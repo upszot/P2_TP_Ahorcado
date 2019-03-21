@@ -25,11 +25,8 @@ import javax.swing.JLabel;
 public class MDI_Principal extends javax.swing.JFrame
 {
 
-    //<editor-fold desc="Atributos">
-    // </editor-fold>
-    /**
-     * Creates new form NewMDIApplication
-     */
+   Frm_juego vjuego;
+    
     public MDI_Principal()
     {
         this.setTitle("upszot  Game");
@@ -164,7 +161,7 @@ public class MDI_Principal extends javax.swing.JFrame
     private void nuevoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoMenuItemActionPerformed
         // TODO add your handling code here:
         //abrir ventana para nuevo juego
-        Frm_juego vjuego = new Frm_juego();
+        vjuego = new Frm_juego();
         this.getDesktopPane().add(vjuego);
         
         Dimension desktopSize = this.desktopPane.getSize();
@@ -196,7 +193,7 @@ public class MDI_Principal extends javax.swing.JFrame
             @Override
             public void componentHidden(ComponentEvent e)
             {
-                Frm_score vScore = new Frm_score();
+                Frm_score vScore = new Frm_score( vjuego.getPlayer());
                 desktopPane.add(vScore);
                 vScore.show();
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

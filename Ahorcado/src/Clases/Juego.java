@@ -103,9 +103,18 @@ public class Juego
     /**
      * @param cantFallos the cantFallos to set
      */
-    public void setCantFallos(int cantFallos)
+    public boolean setCantFallos(int cantFallos)
     {
-        this.cantFallos = cantFallos;
+       boolean resp = false;
+       if(cantFallos > this.cantFallos)
+       {
+        this.cantFallos = cantFallos;           
+       }
+       else{
+           resp= true;
+       }
+       return resp;
+   
     }
 
     /**
@@ -187,7 +196,7 @@ public class Juego
         }
         this.palabra_del_usuario = buffer.toString();
         System.out.println(this.palabra_del_usuario);
-        //generaMascara();
+       // generaMascara();
         return resp;
     }
 
