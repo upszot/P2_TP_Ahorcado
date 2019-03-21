@@ -164,7 +164,8 @@ public class Juego
 
         for (int i = 0; i < this.getPalabra_a_buscar().getPalabra().length(); i++)
         {
-            this.palabra_del_usuario += "*";
+            //this.palabra_del_usuario += "*";
+            this.palabra_del_usuario += " ";
         }
         System.out.println("usuario palabra: " + this.getPalabra_del_usuario());
 

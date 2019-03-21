@@ -1,4 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_181" class="java.beans.XMLDecoder">
- <object class="Clases.Score"/>
+ <object class="Clases.Score" id="Score0"/>
+<void class="Clases.Score" id="Field0" method="getField">
+ <string>lista</string>
+ <void id="ArrayList0" method="get">
+  <object idref="Score0"/>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>5</int>
+    </void>
+    <void property="nivel">
+     <object class="java.lang.Enum" id="ENivel0" method="valueOf">
+      <class>Clases.ENivel</class>
+      <string>FACIL</string>
+     </object>
+    </void>
+    <void property="nombre">
+     <string>upszot</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>3</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>Alejandro</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>1</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>caro</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>4</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>nano</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>2</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>Gonzalo</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>1</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>Tito</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>1</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>pedro</string>
+    </void>
+   </object>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList0"/>
 </java>

@@ -19,6 +19,11 @@ public class Ganador
     private int _cantidad_palabras;
     
     //<editor-fold desc="CONSTRUCTOR">    
+
+    public Ganador()
+    {
+    }
+    
     
         public Ganador(String _nombre)
         {
@@ -67,8 +72,8 @@ public class Ganador
         public String getGanador()
         {
             StringBuffer retorno = new StringBuffer();
-            retorno.append(this._nombre).append(" ");
-            retorno.append(this._nivel).append(" ");
+            retorno.append(this._nombre).append("      ");
+            //retorno.append(this._nivel).append("    ");
             retorno.append(this._cantidad_palabras);
             return  retorno.toString();
         }    

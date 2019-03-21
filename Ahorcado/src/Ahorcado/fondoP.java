@@ -11,7 +11,7 @@ import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+//import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -32,7 +32,7 @@ import javax.swing.border.Border;
             try
             {
                // URL url = new URL(getClass().getResource("\\Imagenes\\fondo.jpg").toString());
-                fondo = ImageIO.read(new File("fondo800x700-02.png"));
+                fondo = ImageIO.read(new File("imagenes/fondo800x700-02.png"));
             }
             catch (IOException ex)
             {
@@ -40,16 +40,19 @@ import javax.swing.border.Border;
             }
         }
 
+        @Override
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height)
         {
             g.drawImage(fondo, (x + (width - fondo.getWidth()) / 2), (y + (height - fondo.getHeight()) / 2), null);
         }
 
+        @Override
         public Insets getBorderInsets(Component c)
         {
             return new Insets(0, 0, 0, 0);
         }
 
+        @Override
         public boolean isBorderOpaque()
         {
             return true;

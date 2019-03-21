@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/score.xml</file>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/MDI_Principal.java</file>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Clases/Score.java</file>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Clases/Diccionario.java</file>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/main.java</file>
+            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/JFrame_Pruebas_Borrable.java</file>
+            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/Frm_score.java</file>
             <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/Frm_juego.java</file>
-            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Ahorcado/frm_score.java</file>
+            <file>file:/C:/Users/upszot/Desktop/P2_TP_Ahorcado/Ahorcado/src/Clases/Juego.java</file>
         </group>
     </open-files>
 </project-private>

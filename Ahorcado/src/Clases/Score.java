@@ -33,10 +33,13 @@ public class Score
     
     public void generar()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            lista.add(new Ganador("upszot", ENivel.FACIL, 5));
-        }
+        lista.add(new Ganador("Gonzalo", ENivel.FACIL, 2));
+        lista.add(new Ganador("pedro", ENivel.FACIL, 1));
+        lista.add(new Ganador("upszot", ENivel.FACIL, 5));
+        lista.add(new Ganador("Alejandro", ENivel.FACIL, 3));
+        lista.add(new Ganador("caro", ENivel.FACIL, 1));
+        lista.add(new Ganador("nano", ENivel.FACIL, 4));        
+
     }
 
     public void addToScore(Ganador nuevo)
@@ -66,7 +69,12 @@ public class Score
         return CantidadMostrar;
     }
 
+    public  int getSize()
+    {
+        return this.lista.size();
+    }
 
+    
     public static void guardarArchivoScore(Score lista, String nombreArchivo)
     {
         XMLEncoder encoder = null;

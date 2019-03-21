@@ -10,10 +10,13 @@ import Clases.Ganador;
 import Clases.Juego;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -24,13 +27,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import static javax.swing.JTable.AUTO_RESIZE_OFF;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -58,11 +64,11 @@ public class Frm_juego extends javax.swing.JInternalFrame
     public Frm_juego()
     {
         this.setContentPane(new JLabel(new ImageIcon("imagenes/fondo.jpg")));
+        miCustomCursor();
 
         initComponents();
         iniciarJuego();
         iniciarTeclado();
-
         //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
     }
 
@@ -192,6 +198,20 @@ public class Frm_juego extends javax.swing.JInternalFrame
     // End of variables declaration//GEN-END:variables
 
 //------------- METODOS
+    public void miCustomCursor() 
+    {        
+        String imgCursor1="imagenes/cursor1.cur"; //este no lo muestra
+        String imgCursor2="imagenes/cursor2.png";
+        String imgCursor3="imagenes/cursor3.png"; //el que mejor se ve...
+        ImageIcon imagen=new ImageIcon(imgCursor3);
+        
+        Cursor miCursor;
+        Toolkit TK =  Toolkit.getDefaultToolkit();
+        
+        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0,0),"Cursor");
+        this.setCursor(miCursor);
+    }
+        
     private void iniciarJuego()
     {
         setNuevoJuego(new Juego());
@@ -206,7 +226,26 @@ public class Frm_juego extends javax.swing.JInternalFrame
         DefaultTableModel tb = new DefaultTableModel();
         tb.setNumRows(1);
         tb.setRowCount(1);
+        
+        jtPalabra.setShowGrid(true);
+        //----- Tratando de centrar el texto de la celda...
+        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setVerticalTextPosition((int) CENTER_ALIGNMENT);
+        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setHorizontalTextPosition((int) CENTER_ALIGNMENT);
 
+        //--------- Tabla Transparente ------
+        jtPalabra.setOpaque(false);        
+        jtPalabra.setBackground(new Color(0,0, 0));
+        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setBackground(new Color(0,0, 0));        
+        ((DefaultTableCellRenderer)jtPalabra.getDefaultRenderer(Object.class)).setOpaque(false);
+        jtPalabra.setGridColor(Color.WHITE);
+        jtPalabra.setForeground(Color.WHITE);
+        
+        panelPalabra.setBackground(new Color(0,0,0));
+        panelPalabra.setOpaque(false);
+        panelPalabra.getViewport().setOpaque(false);
+        //------------------------------------
+                
+                
         for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
         {
             tb.addColumn(" ");
@@ -217,13 +256,11 @@ public class Frm_juego extends javax.swing.JInternalFrame
         for (int i = 0; i < this.getNuevoJuego().getPalabra_a_buscar().getPalabra().length(); i++)
         {
             jtPalabra.setValueAt(mascara.charAt(i), 0, i);
+            //jtPalabra.setValueAt(" ", 0, i);
 
         }
-        //jtPalabra.getTableHeader().setVisible(false);
         jtPalabra.setAutoscrolls(false);
         jtPalabra.setTableHeader(null);
-        // jtPalabra.setAutoResizeMode(AUTO_RESIZE_OFF);
-        //jtPalabra.setSize(10, 10);
     }
 
     /*   private void showTeclado()
@@ -331,7 +368,7 @@ public class Frm_juego extends javax.swing.JInternalFrame
                 System.out.println("Perdiste.... " + this.nuevoJuego.getCantAciertos());
                 JOptionPane.showMessageDialog(this, " Perdiste!! le erraste todas...chinguenguenza, La palabra era:  " + this.nuevoJuego.getPalabra_a_buscar());
 
-                if (this.nuevoJuego.getCantAciertos() >= 0)
+                if (this.nuevoJuego.getCantAciertos() >= 1)
                 {//anotate en lista ganadores
                     System.out.println("entro");
 
@@ -486,13 +523,13 @@ public class Frm_juego extends javax.swing.JInternalFrame
 
     private void abrirAgregarGuardar(Ganador player)
     {
-        Score scoreAux= new Score();    
+        Score scoreAux;    
         if (player.getNombre().length() > 0)
         {
             scoreAux=Score.cargarScore(Ahorcado.main.pathScore);
             scoreAux.addToScore(player);
             JOptionPane.showMessageDialog(this, "Agregado");
-
+            System.out.println("agregado");
            Score.guardarArchivoScore(scoreAux,Ahorcado.main.pathScore);
                // System.out.println("Lista Guardada con Exito");
            

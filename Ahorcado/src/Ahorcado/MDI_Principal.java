@@ -7,6 +7,9 @@ package Ahorcado;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -29,10 +32,10 @@ public class MDI_Principal extends javax.swing.JFrame
     public MDI_Principal()
     {
         this.setTitle("upszot  Game");
-
         initComponents();
+        miCustomCursor();
         this.desktopPane.setBorder(new fondoP());
-
+        
         //this.paintComponents(grphcs);
         //Alto: 857 ancho: 829
         System.out.println(" medidas" + this.getWidth() + this.getHeight());
@@ -40,6 +43,21 @@ public class MDI_Principal extends javax.swing.JFrame
 
     }
 
+    
+    public void miCustomCursor() 
+    {        
+        String imgCursor1="imagenes/cursor1.cur"; //este no lo muestra
+        String imgCursor2="imagenes/cursor2.png";
+        String imgCursor3="imagenes/cursor3.png"; //el que mejor se ve...
+        ImageIcon imagen=new ImageIcon(imgCursor3);
+        
+        Cursor miCursor;
+        Toolkit TK =  Toolkit.getDefaultToolkit();
+        
+        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0,0),"Cursor");
+        this.desktopPane.setCursor(miCursor);        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +72,6 @@ public class MDI_Principal extends javax.swing.JFrame
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         nuevoMenuItem = new javax.swing.JMenuItem();
-        dificultadMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         scoreMenuItem = new javax.swing.JMenuItem();
@@ -81,10 +98,6 @@ public class MDI_Principal extends javax.swing.JFrame
             }
         });
         fileMenu.add(nuevoMenuItem);
-
-        dificultadMenuItem.setMnemonic('s');
-        dificultadMenuItem.setText("Dificultad");
-        fileMenu.add(dificultadMenuItem);
 
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
@@ -176,7 +189,7 @@ public class MDI_Principal extends javax.swing.JFrame
             @Override
             public void componentHidden(ComponentEvent e)
             {
-                frm_score vScore = new frm_score();
+                Frm_score vScore = new Frm_score();
                 desktopPane.add(vScore);
                 vScore.show();
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -190,7 +203,7 @@ public class MDI_Principal extends javax.swing.JFrame
     private void scoreMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_scoreMenuItemActionPerformed
     {//GEN-HEADEREND:event_scoreMenuItemActionPerformed
         // TODO add your handling code here:
-        frm_score vScore = new frm_score();
+        Frm_score vScore = new Frm_score();
         this.getDesktopPane().add(vScore);
         vScore.show();
     }//GEN-LAST:event_scoreMenuItemActionPerformed
@@ -256,7 +269,6 @@ public class MDI_Principal extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenuItem dificultadMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
