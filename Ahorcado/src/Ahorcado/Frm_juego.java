@@ -370,7 +370,7 @@ public class Frm_juego extends javax.swing.JInternalFrame
 
                 if (this.nuevoJuego.getCantAciertos() >= 1)
                 {//anotate en lista ganadores
-                    System.out.println("entro");
+                    System.out.println("entro Anota ganador");
 
                     this.panelTeclado.removeAll();
                     cp.removeAll();

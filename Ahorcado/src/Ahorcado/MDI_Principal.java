@@ -8,6 +8,7 @@ package Ahorcado;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -165,6 +166,12 @@ public class MDI_Principal extends javax.swing.JFrame
         //abrir ventana para nuevo juego
         Frm_juego vjuego = new Frm_juego();
         this.getDesktopPane().add(vjuego);
+        
+        Dimension desktopSize = this.desktopPane.getSize();
+        Dimension FrameSize = vjuego.getSize();
+        vjuego.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        
+        
         vjuego.show();
         vjuego.addComponentListener(new ComponentListener()
         {
@@ -205,7 +212,12 @@ public class MDI_Principal extends javax.swing.JFrame
         // TODO add your handling code here:
         Frm_score vScore = new Frm_score();
         this.getDesktopPane().add(vScore);
+        
+        Dimension desktopSize = this.desktopPane.getSize();
+        Dimension FrameSize = vScore.getSize();
+        vScore.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
         vScore.show();
+        
     }//GEN-LAST:event_scoreMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutMenuItemActionPerformed
