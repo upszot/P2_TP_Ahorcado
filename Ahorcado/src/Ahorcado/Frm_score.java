@@ -30,6 +30,8 @@ public class Frm_score extends javax.swing.JInternalFrame
     private Ganador unGanador;
     private Score listaGanadore = new Score();
     private JLabel[] lblGanadores;
+    boolean flag = false;
+    Container cp;
 
     public Ganador getUnGanador()
     {
@@ -48,7 +50,7 @@ public class Frm_score extends javax.swing.JInternalFrame
     {
         System.out.println("Cantidad de ganadores: " + this.listaGanadore.getSize());
         this.listaGanadore = Score.cargarScore(Ahorcado.main.pathScore);
-        this.lblGanadores = new JLabel[this.listaGanadore.CantidadMostrar + 1];
+        this.lblGanadores = new JLabel[this.listaGanadore.CantidadMostrar + 4];
 
         //String fondo = "imagenes/agujero-vidrio_01.jpg";
         //String fondo = "imagenes/agujero-vidrio_02.jpg";
@@ -65,7 +67,10 @@ public class Frm_score extends javax.swing.JInternalFrame
     {
         this();
         this.unGanador = ganador;
-        mostrar_UltimoGanador();
+        flag = true;
+        cp.removeAll();        
+        mostrar_Ganadores();
+
     }
 
     public void miCustomCursor()
@@ -78,19 +83,20 @@ public class Frm_score extends javax.swing.JInternalFrame
         Cursor miCursor;
         Toolkit TK = Toolkit.getDefaultToolkit();
 
-        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0, 0), "Cursor");      
+        miCursor = TK.createCustomCursor(imagen.getImage(), new Point(0, 0), "Cursor");
         this.setCursor(miCursor);
     }
 
     private void mostrar_Ganadores()
     {// aca va el for con el tostring para mostrar un ganador en los label.. que se va moviendo tipo titulo
         {
-            Container cp = this.panelListado;
-            this.panelListado.setMaximumSize(new Dimension(600,190));
-            this.panelPlayer.setMaximumSize(new Dimension(600,90));
-        
-            GridLayout gl = new GridLayout(this.listaGanadore.CantidadMostrar + 1, 1);
-            gl.setHgap(20);       gl.setVgap(10);
+          cp = this.panelListado;
+
+            //  this.panelListado.setMaximumSize(new Dimension(600, 190));
+            //   this.panelPlayer.setMaximumSize(new Dimension(600, 90));
+            GridLayout gl = new GridLayout(this.listaGanadore.CantidadMostrar + 4, 1);
+            gl.setHgap(8);
+            gl.setVgap(8);
             cp.setLayout(gl);
 
             Score listaAux = this.listaGanadore;
@@ -115,18 +121,35 @@ public class Frm_score extends javax.swing.JInternalFrame
                 this.lblGanadores[i + 1].setText(listaAux.getListaGanadores().get(i).toString());
                 this.lblGanadores[i + 1].setVisible(true);
             }
-            
-            //cp
+
+            if (flag)
+            {
+                 cp.add( new JLabel());
+                 cp.add( new JLabel());
+                
+                JLabel ultimoGanador = new JLabel();
+                ultimoGanador.setFont(new Font("Tahoma", 1, 30));
+                ultimoGanador.setVerticalAlignment((int) CENTER_ALIGNMENT);
+                ultimoGanador.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+                ultimoGanador.setText(this.unGanador.toString());
+
+//            ultimoGanador.setText(this.listaGanadore.getListaGanadores().get(0).toString());
+                ultimoGanador.setForeground(new Color(255, 255, 255));
+                cp.add(ultimoGanador);
+                ultimoGanador.setVisible(true);
+
+            }
 
         }
     }
 
-    private void mostrar_UltimoGanador()
+    /*  private void mostrar_UltimoGanador()
     {// muestra el ultimo jugar que anoto
         {
             Container cp = this.panelPlayer;
             GridLayout gl = new GridLayout(1, 1);
-            gl.setHgap(20);       gl.setVgap(10);
+            gl.setHgap(20);
+            gl.setVgap(10);
             cp.setLayout(gl);
 
             JLabel ultimoGanador = new JLabel();
@@ -142,8 +165,7 @@ public class Frm_score extends javax.swing.JInternalFrame
             ultimoGanador.setForeground(new Color(255, 255, 255));
             ultimoGanador.setVisible(true);
         }
-    }
-
+    }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,8 +177,7 @@ public class Frm_score extends javax.swing.JInternalFrame
     {
 
         jLabel1 = new javax.swing.JLabel();
-        panelListado = new javax.swing.JLayeredPane();
-        panelPlayer = new javax.swing.JLayeredPane();
+        panelListado = new javax.swing.JPanel();
 
         jLabel1.setText("jLabel1");
 
@@ -166,53 +187,38 @@ public class Frm_score extends javax.swing.JInternalFrame
         setMinimumSize(new java.awt.Dimension(622, 619));
         setPreferredSize(new java.awt.Dimension(622, 619));
 
-        panelListado.setMaximumSize(new java.awt.Dimension(600, 190));
-        panelListado.setMinimumSize(new java.awt.Dimension(600, 190));
-        panelListado.setPreferredSize(new java.awt.Dimension(600, 190));
+        panelListado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        panelListado.setMaximumSize(new java.awt.Dimension(370, 328));
+        panelListado.setMinimumSize(new java.awt.Dimension(370, 328));
+        panelListado.setOpaque(false);
+        panelListado.setPreferredSize(new java.awt.Dimension(370, 328));
 
         javax.swing.GroupLayout panelListadoLayout = new javax.swing.GroupLayout(panelListado);
         panelListado.setLayout(panelListadoLayout);
         panelListadoLayout.setHorizontalGroup(
             panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 370, Short.MAX_VALUE)
         );
         panelListadoLayout.setVerticalGroup(
             panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-
-        panelPlayer.setMaximumSize(new java.awt.Dimension(600, 90));
-        panelPlayer.setMinimumSize(new java.awt.Dimension(600, 90));
-
-        javax.swing.GroupLayout panelPlayerLayout = new javax.swing.GroupLayout(panelPlayer);
-        panelPlayer.setLayout(panelPlayerLayout);
-        panelPlayerLayout.setHorizontalGroup(
-            panelPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelPlayerLayout.setVerticalGroup(
-            panelPlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
+            .addGap(0, 328, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelPlayer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(124, Short.MAX_VALUE)
+                .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(150, 150, 150)
                 .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(panelPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -221,7 +227,6 @@ public class Frm_score extends javax.swing.JInternalFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLayeredPane panelListado;
-    private javax.swing.JLayeredPane panelPlayer;
+    private javax.swing.JPanel panelListado;
     // End of variables declaration//GEN-END:variables
 }

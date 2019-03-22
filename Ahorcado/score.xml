@@ -3,7 +3,7 @@
  <object class="Clases.Score" id="Score0"/>
 <void class="Clases.Ganador" id="Ganador0">
  <void property="nombre">
-  <string>ñpñp</string>
+  <string>fff</string>
  </void>
  <void property="nivel">
   <object class="java.lang.Enum" id="ENivel0" method="valueOf">
@@ -13,19 +13,16 @@
  </void>
 </void>
 <void class="Clases.Ganador" id="Ganador1">
+ <void property="nombre">
+  <string>popo</string>
+ </void>
  <void property="nivel">
   <object idref="ENivel0"/>
- </void>
- <void property="nombre">
-  <string>caro</string>
- </void>
- <void property="cantidad_palabras">
-  <int>1</int>
  </void>
 </void>
 <void class="Clases.Ganador" id="Ganador2">
  <void property="nombre">
-  <string>pumpum</string>
+  <string>xxsdsd</string>
  </void>
  <void property="nivel">
   <object idref="ENivel0"/>
@@ -33,7 +30,7 @@
 </void>
 <void class="Clases.Ganador" id="Ganador3">
  <void property="nombre">
-  <string>rr</string>
+  <string>pepe</string>
  </void>
  <void property="nivel">
   <object idref="ENivel0"/>
@@ -41,7 +38,7 @@
 </void>
 <void class="Clases.Ganador" id="Ganador4">
  <void property="nombre">
-  <string>ss</string>
+  <string>rr</string>
  </void>
  <void property="nivel">
   <object idref="ENivel0"/>
@@ -52,7 +49,7 @@
   <object idref="ENivel0"/>
  </void>
  <void property="nombre">
-  <string>dado</string>
+  <string>dada</string>
  </void>
  <void property="cantidad_palabras">
   <int>2</int>
@@ -60,7 +57,7 @@
 </void>
 <void class="Clases.Ganador" id="Ganador6">
  <void property="nombre">
-  <string>popo</string>
+  <string>pumpum</string>
  </void>
  <void property="nivel">
   <object idref="ENivel0"/>
@@ -68,114 +65,27 @@
 </void>
 <void class="Clases.Ganador" id="Ganador7">
  <void property="nombre">
-  <string>ee</string>
+  <string>xx</string>
  </void>
  <void property="nivel">
   <object idref="ENivel0"/>
+ </void>
+</void>
+<void class="Clases.Ganador" id="Ganador8">
+ <void property="nivel">
+  <object idref="ENivel0"/>
+ </void>
+ <void property="nombre">
+  <string>Alejandro</string>
+ </void>
+ <void property="cantidad_palabras">
+  <int>3</int>
  </void>
 </void>
 <void class="Clases.Score" id="Field0" method="getField">
  <string>lista</string>
  <void id="ArrayList0" method="get">
   <object idref="Score0"/>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="cantidad_palabras">
-     <int>3</int>
-    </void>
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>Alejandro</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>aa</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>julieta</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>aaa</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object idref="Ganador1"/>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="cantidad_palabras">
-     <int>2</int>
-    </void>
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>dada</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>juan</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object idref="Ganador2"/>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="cantidad_palabras">
-     <int>4</int>
-    </void>
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>nano</string>
-    </void>
-   </object>
-  </void>
-  <void method="add">
-   <object idref="Ganador6"/>
-  </void>
-  <void method="add">
-   <object class="Clases.Ganador">
-    <void property="nivel">
-     <object idref="ENivel0"/>
-    </void>
-    <void property="nombre">
-     <string>pepe</string>
-    </void>
-   </object>
-  </void>
   <void method="add">
    <object class="Clases.Ganador">
     <void property="nivel">
@@ -200,10 +110,27 @@
    </object>
   </void>
   <void method="add">
-   <object idref="Ganador0"/>
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>ñpñp</string>
+    </void>
+   </object>
   </void>
   <void method="add">
-   <object idref="Ganador5"/>
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>2</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>dado</string>
+    </void>
+   </object>
   </void>
   <void method="add">
    <object class="Clases.Ganador">
@@ -315,7 +242,7 @@
    </object>
   </void>
   <void method="add">
-   <object idref="Ganador3"/>
+   <object idref="Ganador4"/>
   </void>
   <void method="add">
    <object class="Clases.Ganador">
@@ -328,7 +255,14 @@
    </object>
   </void>
   <void method="add">
-   <object idref="Ganador7"/>
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>ee</string>
+    </void>
+   </object>
   </void>
   <void method="add">
    <object class="Clases.Ganador">
@@ -344,7 +278,14 @@
    </object>
   </void>
   <void method="add">
-   <object idref="Ganador4"/>
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>ss</string>
+    </void>
+   </object>
   </void>
   <void method="add">
    <object class="Clases.Ganador">
@@ -377,12 +318,31 @@
    </object>
   </void>
   <void method="add">
+   <object idref="Ganador0"/>
+  </void>
+  <void method="add">
+   <object idref="Ganador7"/>
+  </void>
+  <void method="add">
    <object class="Clases.Ganador">
     <void property="nivel">
      <object idref="ENivel0"/>
     </void>
     <void property="nombre">
-     <string>fff</string>
+     <string>ffff</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Ganador8"/>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>hhhh</string>
     </void>
    </object>
   </void>
@@ -392,9 +352,160 @@
      <object idref="ENivel0"/>
     </void>
     <void property="nombre">
-     <string>xx</string>
+     <string>aa</string>
     </void>
    </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>FFFF</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>julieta</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>VDFCXXFDFS</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>aaa</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>GFHHH</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>1</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>caro</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>MMMM</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Ganador5"/>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>HHHH</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>juan</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>hjjjj</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Ganador6"/>
+  </void>
+  <void method="add">
+   <object idref="Ganador2"/>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="cantidad_palabras">
+     <int>4</int>
+    </void>
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>nano</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>oh sii</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Ganador1"/>
+  </void>
+  <void method="add">
+   <object class="Clases.Ganador">
+    <void property="nivel">
+     <object idref="ENivel0"/>
+    </void>
+    <void property="nombre">
+     <string>,odfgd</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="Ganador3"/>
   </void>
  </void>
 </void>
