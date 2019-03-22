@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -117,5 +118,10 @@ public class Score
 
         return nuevo;
     }
+    
+    public static final Comparator<Ganador> armarRanking = (Ganador user1, Ganador  user2) ->
+    {
+        return (int) Math.signum(user2.getCantidad_palabras()- user1.getCantidad_palabras());
+    };
 
 }

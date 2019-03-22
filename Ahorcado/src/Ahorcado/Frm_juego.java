@@ -5,6 +5,7 @@
  */
 package Ahorcado;
 
+import Clases.DiccionarioCompleto;
 import Clases.Score;
 import Clases.Ganador;
 import Clases.ISonidos;
@@ -19,33 +20,23 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.ContainerListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
-import java.util.Locale;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import static javax.swing.JTable.AUTO_RESIZE_OFF;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -69,11 +60,19 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
      */
     public Frm_juego()
     {
+     //   sonidoCargarRevolver();
         this.setContentPane(new JLabel(new ImageIcon("imagenes/fondo.jpg")));
         miCustomCursor();
 
         initComponents();
-        iniciarJuego();
+        try
+        {
+            iniciarJuego();
+        }
+        catch (DiccionarioCompleto ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
         iniciarTeclado();
         //  this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
     }
@@ -286,12 +285,12 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
         this.setCursor(miCursor);
     }
 
-    private void iniciarJuego()
+    private void iniciarJuego() throws DiccionarioCompleto
     {
-        sonidoCargarRevolver();
         setNuevoJuego(new Juego());
         actualizarImagen(0);
         showTablaPalabra(this.nuevoJuego.getPalabra_del_usuario());
+ 
     }
 
     private void showTablaPalabra(String mascara)
@@ -305,7 +304,7 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
 
         jtPalabra.setShowGrid(true);
         //----- Tratando de centrar el texto de la celda...
-        DefaultTableCellRenderer tcr= new DefaultTableCellRenderer();
+        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         tcr.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         tcr.setVerticalTextPosition((int) CENTER_ALIGNMENT);
 //        ((DefaultTableCellRenderer) jtPalabra.getDefaultRenderer(Object.class)).setVerticalTextPosition((int) CENTER_ALIGNMENT);
@@ -407,16 +406,23 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
             this.getBotones()[i].setForeground(new Color(255, 255, 255));
             this.getBotones()[i].setContentAreaFilled(false); //Boton Transparente
             this.getBotones()[i].setBorderPainted(false);
-            this.getBotones()[i].setBorder(null);            
+            this.getBotones()[i].setBorder(null);
 
             this.getBotones()[i].addActionListener(new ActionListener()
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
                 {
                     setLetra(evt);
-                    recibirDeTeclado(getLetra());
+                    try
+                    {
+                        recibirDeTeclado(getLetra());
 
-                    //    this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
+                        //    this.nuevoJuego.BuscaLetraEnPalabra(this.tecladoEnPantalla.getLetra());
+                    }
+                    catch (DiccionarioCompleto ex)
+                    {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
                 }
             });//fin escuchador            
 
@@ -426,7 +432,7 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
     /**
      * @return the tecladoEnPantalla
      */
-    public void recibirDeTeclado(char letra1)
+    public void recibirDeTeclado(char letra1) throws DiccionarioCompleto
     {
         if (!this.nuevoJuego.setCantFallos(this.nuevoJuego.getCantFallos() + this.nuevoJuego.BuscaLetraEnPalabra(letra1)))
         {
@@ -451,7 +457,7 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
                 System.out.println("Perdiste.... " + this.nuevoJuego.getCantAciertos());
                 JOptionPane.showMessageDialog(this, " Perdiste!! le erraste todas...chinguenguenza, La palabra era:  " + this.nuevoJuego.getPalabra_a_buscar());
 
-                if (this.nuevoJuego.getCantAciertos() >= 0)
+                if (this.nuevoJuego.getCantAciertos() >= 0) //// *****aca va 1... pongo 0 solo para testiar
                 {//anotate en lista ganadores
                     System.out.println("entro Anota ganador");
 
@@ -615,6 +621,9 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
 
     public void actualizarImagen(int intento)
     {
+        if (intento>0)
+        sonidoCargarRevolver();
+        
         if (this.panelImagen != null)
         {
             this.panelImagen.removeAll();
@@ -642,35 +651,29 @@ public class Frm_juego extends javax.swing.JInternalFrame implements ISonidos
     @Override
     public void sonidoCargarRevolver()
     {
-        System.out.println("Reproduccir sonido carga");
-        
-        /*
-        String path = "Sonidos/Carga_Revolver_Magnun.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        */
-        
-        /*
-        Clip soundClip;
-        String archSonido="Sonidos/Carga_Revolver_Magnun.mp3";
+        System.out.println("Reproduccir sonido carga");        
+        //Clip soundClip;
+        String archSonido = "C:\\Users\\upszot\\Desktop\\P2_TP_Ahorcado\\Ahorcado\\Sonidos\\Disparo_Magnum357.wav";
         try
         {
-            soundClip=AudioSystem.getClip();
-            soundClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(archSonido)));
-            soundClip.start();
+            //soundClip = AudioSystem.getClip();
+            //soundClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(archSonido)));
+            //soundClip.start();
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(archSonido).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
         }
-        catch(Exception e)
+        catch (IOException | UnsupportedAudioFileException | LineUnavailableException e)
         {
-            
-        }*/
-        
+        }
+
     }
-    
+
     @Override
     public void sonidoDisparo()
     {
-        
+
     }
 }

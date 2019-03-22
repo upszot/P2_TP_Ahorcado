@@ -193,9 +193,15 @@ public class MDI_Principal extends javax.swing.JFrame
             @Override
             public void componentHidden(ComponentEvent e)
             {
+                System.out.println("Jugador que anoto... " + vjuego.getPlayer());
                 Frm_score vScore = new Frm_score( vjuego.getPlayer());
                 desktopPane.add(vScore);
-                vScore.show();
+                
+                Dimension desktopSize =desktopPane.getSize();
+                Dimension FrameSize = vScore.getSize();
+                vScore.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+                vScore.setVisible(true);
+                //vScore.show();
                 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
@@ -213,7 +219,7 @@ public class MDI_Principal extends javax.swing.JFrame
         Dimension desktopSize = this.desktopPane.getSize();
         Dimension FrameSize = vScore.getSize();
         vScore.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        vScore.show();
+        vScore.setVisible(true);
         
     }//GEN-LAST:event_scoreMenuItemActionPerformed
 

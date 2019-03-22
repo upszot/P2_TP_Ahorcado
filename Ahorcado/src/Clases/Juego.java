@@ -26,7 +26,7 @@ public class Juego
     // </editor-fold>
 
     //<editor-fold desc="Constructores">
-    public Juego()
+    public Juego() throws DiccionarioCompleto
     {
         this.diccionarioCompleto = Diccionario.cargarDiccionario(Ahorcado.main.pathDiccionario);
         this._dificultad= ENivel.FACIL;
@@ -34,7 +34,7 @@ public class Juego
         //this.diccionarioFiltrado = diccionarioCompleto.armarDiccionarioNivel(this._dificultad);
     }
 
-    public void nuevaPalabra()
+    public void nuevaPalabra() throws DiccionarioCompleto
     {
         this.cantFallos = 0;
         this.cantFallosPermitidos = 6; //cuerpito completo       

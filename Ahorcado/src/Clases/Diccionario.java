@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Clases;
+
 /**
  *
  * @author upszot
@@ -21,7 +22,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 //import javax.swing.JLabel;
 
-public class Diccionario 
+public class Diccionario
 {
 
     //<editor-fold desc="Atributos">
@@ -29,7 +30,6 @@ public class Diccionario
 
     // </editor-fold>
     //<editor-fold desc="Constructores">
-
     public Diccionario()
     {
         lista = new ArrayList<Palabra>();
@@ -61,14 +61,13 @@ public class Diccionario
     @Override
     public String toString()
     {
-        String retorno= "";
+        String retorno = "";
         for (Palabra palabra : this.lista)
         {
-             retorno += palabra.toString() + "\n";
+            retorno += palabra.toString() + "\n";
         }
         return retorno;
     }
-
 
     public static void guardarArchivoDiccionario(Diccionario lista, String nombreArchivo)
     {
@@ -90,7 +89,6 @@ public class Diccionario
         encoder.close();
     }
 
-
     public static Diccionario cargarDiccionario(String nombreArchivo)
     {
         XMLDecoder decoder = null;
@@ -109,7 +107,6 @@ public class Diccionario
 
         return nuevo;
     }
-
 
     public void quitarPalabra(String nombre)
     {
@@ -131,15 +128,21 @@ public class Diccionario
         }
 
     }
-    
-    public Palabra getPalabraRandom()
+
+    public Palabra getPalabraRandom() throws DiccionarioCompleto
     {
-        int nroRandom =funciones.random.Entero_DesdeHasta(0, this.lista.size() - 1);        
+        int nroRandom;
+
+        if (this.lista.isEmpty())
+        {
+            throw new DiccionarioCompleto("diccionario 100% usado");
+        }
+        else
+        {
+            nroRandom = funciones.random.Entero_DesdeHasta(0, this.lista.size() - 1);
+        }
         return this.lista.get(nroRandom);
     }
-
-   
-
 
     // </editor-fold>
 }
